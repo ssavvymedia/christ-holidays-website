@@ -21,14 +21,12 @@ export default function TripForm() {
     window.open(whatsappLink(parts.join(" ")), "_blank", "noopener,noreferrer");
   }
 
+  const field =
+    "h-12 w-full rounded-xl border border-slate-200 bg-white px-4 text-sm text-navy shadow-sm outline-none transition placeholder:text-slate-400 focus:border-navy focus:ring-2 focus:ring-navy/10";
+
   return (
-    <form onSubmit={onSubmit} className="grid grid-cols-1 gap-4 md:grid-cols-5">
-      <select
-        required
-        value={travelType}
-        onChange={(e) => setTravelType(e.target.value)}
-        className="rounded-lg border border-slate-300 px-4 py-3 text-sm"
-      >
+    <form onSubmit={onSubmit} className="grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-5">
+      <select required value={travelType} onChange={(e) => setTravelType(e.target.value)} className={field}>
         <option value="">Travel Type</option>
         <option>Domestic</option>
         <option>International</option>
@@ -41,23 +39,23 @@ export default function TripForm() {
         placeholder="Destination"
         value={destination}
         onChange={(e) => setDestination(e.target.value)}
-        className="rounded-lg border border-slate-300 px-4 py-3 text-sm"
+        className={field}
       />
-      <input
-        type="date"
-        value={date}
-        onChange={(e) => setDate(e.target.value)}
-        className="rounded-lg border border-slate-300 px-4 py-3 text-sm"
-      />
+      <label className="relative block">
+        <input type="date" value={date} onChange={(e) => setDate(e.target.value)} className={`${field} pr-3`} />
+      </label>
       <input
         type="number"
         min="1"
         placeholder="No. of Travellers"
         value={travellers}
         onChange={(e) => setTravellers(e.target.value)}
-        className="rounded-lg border border-slate-300 px-4 py-3 text-sm"
+        className={field}
       />
-      <button type="submit" className="rounded-lg bg-navy px-6 py-3 font-semibold text-white transition hover:bg-navy-light">
+      <button
+        type="submit"
+        className="inline-flex h-12 items-center justify-center rounded-xl bg-navy px-5 text-sm font-bold text-white shadow-md transition hover:-translate-y-0.5 hover:bg-navy-light"
+      >
         Get a Call Back →
       </button>
     </form>
