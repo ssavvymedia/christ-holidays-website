@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 200" role="img" aria-labelledby="title desc">
+  <title id="title">Christ Holiday's &amp; Travels Pvt Ltd.</title>
+  <desc id="desc">Your Travel Designer</desc>
+  <defs>
+    <linearGradient id="sky" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#7EC8E8"/>
+      <stop offset="55%" stop-color="#B8E4F7"/>
+      <stop offset="100%" stop-color="#F7D9A3"/>
+    </linearGradient>
+    <linearGradient id="sea" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#2E8BC0"/>
+      <stop offset="100%" stop-color="#0B4F7A"/>
+    </linearGradient>
+  </defs>
+  <circle cx="90" cy="100" r="82" fill="url(#sky)" stroke="#0B2A4A" stroke-width="6"/>
+  <path d="M20 128 C50 118, 80 138, 110 124 C130 116, 145 128, 160 122 L160 175 A82 82 0 0 1 20 168 Z" fill="url(#sea)"/>
+  <ellipse cx="128" cy="148" rx="22" ry="8" fill="#E8C989"/>
+  <rect x="116" y="86" width="5" height="64" rx="2" fill="#6B3F1A"/>
+  <path d="M118 86 L118 86 C118 58, 86 50, 70 72 C90 68, 104 86, 118 86 Z" fill="#E53935"/>
+  <path d="M118 86 C118 54, 156 52, 164 84 C146 72, 130 84, 118 86 Z" fill="#F5C400"/>
+  <path d="M118 86 C100 70, 132 48, 148 70 C136 66, 126 78, 118 86 Z" fill="#1E88E5"/>
+  <circle cx="118.5" cy="86" r="5" fill="#0B2A4A"/>
+  <text x="196" y="78" font-family="Georgia, 'Times New Roman', serif" font-size="36" font-weight="700" fill="#0B2A4A">CHRIST HOLIDAY'S</text>
+  <text x="196" y="112" font-family="Georgia, 'Times New Roman', serif" font-size="22" font-weight="700" fill="#163A63">&amp; TRAVELS PVT LTD.</text>
+  <text x="196" y="148" font-family="Georgia, 'Times New Roman', serif" font-size="16" font-style="italic" fill="#C9A227">Your Travel Designer</text>
+</svg>
