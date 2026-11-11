@@ -82,7 +82,9 @@ export default function Header() {
               <img
                 src="/assets/logo.png"
                 alt="Christ Holiday's & Travels Pvt Ltd. — Your Travel Designer"
-                className="h-11 w-auto md:h-12"
+                width={396}
+                height={123}
+                className="h-10 w-auto max-w-[220px] object-contain object-left sm:h-11 sm:max-w-[260px] md:h-12 md:max-w-none lg:h-[3.25rem]"
               />
             </Link>
             <span className="hidden max-w-[8.5rem] border-l border-slate-200 pl-3 text-[12px] leading-tight text-navy/80 md:inline">
