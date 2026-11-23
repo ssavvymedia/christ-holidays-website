@@ -1,12 +1,15 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { pageMetadata } from "@/lib/seo";
+import { SITE_NAME } from "@/lib/site";
 
-export const metadata: Metadata = pageMetadata({
-  title: "Page not found",
+export const metadata: Metadata = {
+  title: { absolute: `Page not found | ${SITE_NAME}` },
   description: "This page is not on the Christ Holidays & Travels website. Go back to the homepage or contact the Salem, Madurai or Thoothukudi office.",
-  path: "/404",
-});
+  robots: { index: false, follow: false },
+  alternates: { canonical: null },
+  openGraph: null,
+  twitter: null,
+};
 
 export default function NotFound() {
   return (
