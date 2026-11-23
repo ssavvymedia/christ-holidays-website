@@ -18,45 +18,68 @@ export default function TripForm() {
       date && `Travel date: ${date}`,
       travellers && `Travellers: ${travellers}`,
     ].filter(Boolean);
-    window.open(whatsappLink(parts.join(" ")), "_blank", "noopener,noreferrer");
+    const url = whatsappLink(parts.join(" "));
+    const opened = window.open(url, "_blank", "noopener,noreferrer");
+    if (!opened) window.location.href = url;
   }
 
   const field =
-    "h-12 w-full rounded-xl border border-slate-200 bg-white px-4 text-sm text-navy shadow-sm outline-none transition placeholder:text-slate-400 focus:border-navy focus:ring-2 focus:ring-navy/10";
+    "h-12 w-full rounded-xl border border-slate-200 bg-white px-4 text-sm text-navy shadow-sm outline-none transition placeholder:text-slate-500 focus:border-navy focus:ring-2 focus:ring-navy/15";
 
   return (
     <form onSubmit={onSubmit} className="grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-5">
-      <select required value={travelType} onChange={(e) => setTravelType(e.target.value)} className={field}>
-        <option value="">Travel Type</option>
-        <option>Domestic</option>
-        <option>International</option>
-        <option>Honeymoon</option>
-        <option>Group Tour</option>
-      </select>
-      <input
-        type="text"
-        required
-        placeholder="Destination"
-        value={destination}
-        onChange={(e) => setDestination(e.target.value)}
-        className={field}
-      />
-      <label className="relative block">
-        <input type="date" value={date} onChange={(e) => setDate(e.target.value)} className={`${field} pr-3`} />
-      </label>
-      <input
-        type="number"
-        min="1"
-        placeholder="No. of Travellers"
-        value={travellers}
-        onChange={(e) => setTravellers(e.target.value)}
-        className={field}
-      />
+      <div>
+        <label htmlFor="trip-type" className="sr-only">
+          Travel type
+        </label>
+        <select id="trip-type" required value={travelType} onChange={(event) => setTravelType(event.target.value)} className={field}>
+          <option value="">Travel type</option>
+          <option>Domestic</option>
+          <option>International</option>
+          <option>Honeymoon</option>
+          <option>Group tour</option>
+          <option>Corporate tour</option>
+        </select>
+      </div>
+      <div>
+        <label htmlFor="trip-destination" className="sr-only">
+          Destination
+        </label>
+        <input
+          id="trip-destination"
+          type="text"
+          required
+          placeholder="Destination"
+          value={destination}
+          onChange={(event) => setDestination(event.target.value)}
+          className={field}
+        />
+      </div>
+      <div>
+        <label htmlFor="trip-date" className="sr-only">
+          Travel date
+        </label>
+        <input id="trip-date" type="date" value={date} onChange={(event) => setDate(event.target.value)} className={field} />
+      </div>
+      <div>
+        <label htmlFor="trip-travellers" className="sr-only">
+          Number of travellers
+        </label>
+        <input
+          id="trip-travellers"
+          type="number"
+          min="1"
+          placeholder="Number of travellers"
+          value={travellers}
+          onChange={(event) => setTravellers(event.target.value)}
+          className={field}
+        />
+      </div>
       <button
         type="submit"
         className="inline-flex h-12 items-center justify-center rounded-xl bg-navy px-5 text-sm font-bold text-white shadow-md transition hover:-translate-y-0.5 hover:bg-navy-light"
       >
-        Get a Call Back →
+        Send on WhatsApp
       </button>
     </form>
   );

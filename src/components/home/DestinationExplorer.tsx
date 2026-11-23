@@ -49,9 +49,10 @@ export default function DestinationExplorer({ destinations }: { destinations: De
           <Link key={dest.name} href={dest.link} className="group relative block overflow-hidden rounded-2xl shadow-md">
             <Image
               src={dest.image}
-              alt={dest.name}
+              alt={`${dest.name}: ${dest.tagline}`}
               width={400}
               height={500}
+              sizes="(min-width: 1280px) 16vw, (min-width: 768px) 33vw, 50vw"
               className="h-48 w-full object-cover transition duration-500 group-hover:scale-110 sm:h-56"
             />
             <div className="absolute inset-0 bg-linear-to-t from-black/75 via-black/10 to-transparent" />

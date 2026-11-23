@@ -1,11 +1,22 @@
+import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
 import TripForm from "@/components/TripForm";
 import Reveal from "@/components/Reveal";
+import JsonLd from "@/components/JsonLd";
 import { WhatsAppIcon } from "@/components/icons";
 import DestinationExplorer, { type Destination } from "@/components/home/DestinationExplorer";
 import FaqAccordion from "@/components/home/FaqAccordion";
-import { branches, EMAIL, whatsappLink } from "@/lib/site";
+import { faqLd, pageMetadata } from "@/lib/seo";
+import { branches, EMAIL, faqs, whatsappLink } from "@/lib/site";
+
+export const metadata: Metadata = pageMetadata({
+  title: "Christ Holidays & Travels | Holiday Packages from Salem, Madurai and Tuticorin",
+  description:
+    "Plan domestic and international holidays with Christ Holidays & Travels, a travel agency in Salem, Madurai and Thoothukudi (Tuticorin). Honeymoons, group and corporate tours, flights, hotels and visa support. Enquire for the price.",
+  path: "/",
+  absolute: true,
+});
 
 const trustItems = [
   {
@@ -51,19 +62,19 @@ const trustItems = [
 ];
 
 const destinations: Destination[] = [
-  { name: "Kashmir", tagline: "Serene Valleys", image: "/assets/home/kashmir.jpg", link: "/domestic-tour-packages/north-india", region: "domestic" },
-  { name: "Kerala", tagline: "Backwaters & Hills", image: "/assets/home/kerala.jpg", link: "/domestic-tour-packages/south-india", region: "domestic" },
-  { name: "Goa", tagline: "Sun & Beaches", image: "/assets/home/goa.jpg", link: "/domestic-tour-packages/south-india", region: "domestic" },
-  { name: "Ooty", tagline: "Nilgiri Hills", image: "/assets/home/ooty.jpg", link: "/domestic-tour-packages/south-india", region: "domestic" },
-  { name: "Andaman", tagline: "Island Escape", image: "/assets/home/andaman.jpg", link: "/domestic-tour-packages", region: "domestic" },
-  { name: "Dubai", tagline: "City of Wonders", image: "/assets/home/dubai.jpg", link: "/international-tour-packages/middle-east", region: "international" },
-  { name: "Singapore", tagline: "Modern & Magical", image: "/assets/home/singapore.jpg", link: "/international-tour-packages/asia", region: "international" },
-  { name: "Thailand", tagline: "Beaches & Beyond", image: "/assets/home/thailand.jpg", link: "/international-tour-packages/asia", region: "international" },
-  { name: "Bali", tagline: "Island of Bliss", image: "/assets/home/bali.jpg", link: "/international-tour-packages/asia", region: "international" },
-  { name: "Maldives", tagline: "Turquoise Atolls", image: "/assets/home/maldives.jpg", link: "/international-tour-packages/asia", region: "international" },
-  { name: "Malaysia", tagline: "Cities & Islands", image: "/assets/home/malaysia.jpg", link: "/international-tour-packages/asia", region: "international" },
-  { name: "Sri Lanka", tagline: "Isle of Serenity", image: "/assets/home/srilanka.jpg", link: "/international-tour-packages/asia", region: "international" },
-  { name: "Europe", tagline: "A Multi-Country Experience", image: "/assets/home/europe.jpg", link: "/international-tour-packages/europe", region: "international" },
+  { name: "Kashmir", tagline: "Lakes and valleys", image: "/assets/home/kashmir.jpg", link: "/domestic-tour-packages/north-india/kashmir", region: "domestic" },
+  { name: "Kerala", tagline: "Backwaters and hills", image: "/assets/home/kerala.jpg", link: "/domestic-tour-packages/south-india/kerala", region: "domestic" },
+  { name: "Goa", tagline: "Beaches", image: "/assets/home/goa.jpg", link: "/domestic-tour-packages/south-india/goa", region: "domestic" },
+  { name: "Ooty", tagline: "Nilgiri hills", image: "/assets/home/ooty.jpg", link: "/domestic-tour-packages/south-india/ooty", region: "domestic" },
+  { name: "Andaman", tagline: "Island beaches", image: "/assets/home/andaman.jpg", link: "/domestic-tour-packages/islands/andaman", region: "domestic" },
+  { name: "Dubai", tagline: "City and desert", image: "/assets/home/dubai.jpg", link: "/international-tour-packages/middle-east/dubai", region: "international" },
+  { name: "Singapore", tagline: "Gardens and Sentosa", image: "/assets/home/singapore.jpg", link: "/international-tour-packages/asia/singapore", region: "international" },
+  { name: "Thailand", tagline: "Cities and beaches", image: "/assets/home/thailand.jpg", link: "/international-tour-packages/asia/thailand", region: "international" },
+  { name: "Bali", tagline: "Temples and beaches", image: "/assets/home/bali.jpg", link: "/international-tour-packages/asia/bali", region: "international" },
+  { name: "Maldives", tagline: "Island stays", image: "/assets/home/maldives.jpg", link: "/international-tour-packages/asia/maldives", region: "international" },
+  { name: "Malaysia", tagline: "City and islands", image: "/assets/home/malaysia.jpg", link: "/international-tour-packages/asia/malaysia", region: "international" },
+  { name: "Sri Lanka", tagline: "Forts, tea and beaches", image: "/assets/home/srilanka.jpg", link: "/international-tour-packages/asia/sri-lanka", region: "international" },
+  { name: "Europe", tagline: "Cities you choose", image: "/assets/home/europe.jpg", link: "/international-tour-packages/europe", region: "international" },
 ];
 
 const whyItems = [
@@ -85,14 +96,14 @@ const whyItems = [
 ];
 
 const featured = [
-  { slug: "dubai-5-days-4-nights", title: "Dubai Tour Package", duration: "5 Days / 4 Nights", price: "From ₹49,999*", image: "/assets/home/dubai.jpg", inclusions: ["Stay", "Breakfast", "Transfers", "Sightseeing"] },
-  { slug: "singapore-4-days-3-nights", title: "Singapore Tour Package", duration: "4 Days / 3 Nights", price: "From ₹54,999*", image: "/assets/home/singapore.jpg", inclusions: ["Stay", "Breakfast", "Transfers", "Sightseeing"] },
-  { slug: "kashmir-6-days-5-nights", title: "Kashmir Tour Package", duration: "6 Days / 5 Nights", price: "From ₹39,999*", image: "/assets/home/kashmir.jpg", inclusions: ["Stay", "Breakfast", "Transfers", "Sightseeing"] },
-  { slug: "bali-5-days-4-nights", title: "Bali Tour Package", duration: "5 Days / 4 Nights", price: "From ₹59,999*", image: "/assets/home/bali-temple.jpg", inclusions: ["Stay", "Breakfast", "Transfers", "Sightseeing"] },
-  { slug: "kerala-5-days-4-nights", title: "Kerala Tour Package", duration: "5 Days / 4 Nights", price: "Request a Quote", image: "/assets/home/kerala.jpg", inclusions: ["Stay", "Breakfast", "Transfers", "Houseboat"] },
-  { slug: "thailand-5-days-4-nights", title: "Thailand Tour Package", duration: "5 Days / 4 Nights", price: "Request a Quote", image: "/assets/home/thailand.jpg", inclusions: ["Stay", "Breakfast", "Transfers", "Sightseeing"] },
-  { slug: "maldives-5-days-4-nights", title: "Maldives Tour Package", duration: "5 Days / 4 Nights", price: "Request a Quote", image: "/assets/home/maldives.jpg", inclusions: ["Stay", "Breakfast", "Transfers"] },
-  { slug: "andaman-6-days-5-nights", title: "Andaman Tour Package", duration: "6 Days / 5 Nights", price: "Request a Quote", image: "/assets/home/andaman.jpg", inclusions: ["Stay", "Breakfast", "Transfers", "Sightseeing"] },
+  { slug: "dubai-5-days-4-nights", title: "Dubai Tour Package", duration: "5 Days / 4 Nights", image: "/assets/home/dubai.jpg", alt: "Dubai skyline beside the water", inclusions: ["Stay", "Breakfast", "Transfers", "Sightseeing"] },
+  { slug: "singapore-4-days-3-nights", title: "Singapore Tour Package", duration: "4 Days / 3 Nights", image: "/assets/home/singapore.jpg", alt: "Singapore waterfront and city buildings", inclusions: ["Stay", "Breakfast", "Transfers", "Sightseeing"] },
+  { slug: "kashmir-6-days-5-nights", title: "Kashmir Tour Package", duration: "6 Days / 5 Nights", image: "/assets/home/kashmir.jpg", alt: "A lake and mountains in Kashmir", inclusions: ["Stay", "Breakfast", "Transfers", "Sightseeing"] },
+  { slug: "bali-5-days-4-nights", title: "Bali Tour Package", duration: "5 Days / 4 Nights", image: "/assets/home/bali.jpg", alt: "A temple gateway and greenery in Bali", inclusions: ["Stay", "Breakfast", "Transfers", "Sightseeing"] },
+  { slug: "kerala-5-days-4-nights", title: "Kerala Tour Package", duration: "5 Days / 4 Nights", image: "/assets/home/kerala.jpg", alt: "Palm-lined backwaters in Kerala", inclusions: ["Stay", "Breakfast", "Transfers", "Houseboat"] },
+  { slug: "thailand-5-days-4-nights", title: "Thailand Tour Package", duration: "5 Days / 4 Nights", image: "/assets/home/thailand.jpg", alt: "A temple roof in Thailand", inclusions: ["Stay", "Breakfast", "Transfers", "Sightseeing"] },
+  { slug: "maldives-5-days-4-nights", title: "Maldives Tour Package", duration: "5 Days / 4 Nights", image: "/assets/home/maldives.jpg", alt: "Turquoise water and a Maldives shoreline", inclusions: ["Stay", "Breakfast", "Transfers"] },
+  { slug: "andaman-6-days-5-nights", title: "Andaman Tour Package", duration: "6 Days / 5 Nights", image: "/assets/home/andaman.jpg", alt: "Clear sea water along an Andaman beach", inclusions: ["Stay", "Breakfast", "Transfers", "Sightseeing"] },
 ];
 
 const honeymoons = [
@@ -103,15 +114,15 @@ const honeymoons = [
 ];
 
 const tripStyles = [
-  { title: "Group Tours", text: "Travel with family or friends. Share the group size, destination and dates and we will help plan a suitable itinerary.", href: "/travel-experiences/group-tours", image: "/assets/home/singapore.jpg" },
-  { title: "Family Holidays", text: "Trips paced for parents and children, with stays and sightseeing agreed in advance.", href: "/contact", image: "/assets/home/goa.jpg" },
-  { title: "Corporate Travel", text: "Offsites and group movements with coordinated stays, transfers and a single point of contact.", href: "/travel-experiences/group-tours", image: "/assets/home/dubai.jpg" },
+  { title: "Group Tours", text: "Travel with family or friends. Share the group size, destination and dates and the team will suggest an itinerary.", href: "/travel-experiences/group-tours", image: "/assets/home/singapore.jpg", alt: "Singapore waterfront, used for group trip planning" },
+  { title: "Family Holidays", text: "Trips paced for parents and children, with stays and sightseeing agreed before booking.", href: "/travel-experiences/group-tours", image: "/assets/home/goa.jpg", alt: "A Goa beach, a common family holiday setting" },
+  { title: "Corporate Travel", text: "Offsites and team movements with coordinated stays, transfers and one point of contact.", href: "/travel-experiences/corporate-tours", image: "/assets/home/dubai.jpg", alt: "Dubai skyline, a city used for some corporate trips" },
 ];
 
 const services = [
-  { title: "Visa Assistance", text: "Guidance on documents, appointments and application steps for the destinations we plan.", href: "/travel-services" },
-  { title: "Flight Booking", text: "Help with flight options, including group travel, to match your holiday dates.", href: "/travel-services" },
-  { title: "Hotel Booking", text: "Stays shortlisted to your budget, location and travel style, then confirmed with you.", href: "/travel-services" },
+  { title: "Visa Assistance", text: "Guidance on documents and application steps for the trips we plan. The embassy decides the result.", href: "/travel-services#visa" },
+  { title: "Flight Booking", text: "Flight options, including a request for a group, matched to your holiday dates.", href: "/travel-services#flights" },
+  { title: "Hotel Booking", text: "Stays shortlisted to your budget and location, then named in the quote.", href: "/travel-services#hotels" },
   { title: "Customised Holidays", text: "A trip outline built around your destination, dates and preferences.", href: "/contact" },
 ];
 
@@ -122,28 +133,21 @@ const steps = [
   { step: "4", title: "Travel with support", text: "Stay in touch with the team for coordination before and during the trip." },
 ];
 
-const faqs = [
-  { question: "How do I enquire about a package?", answer: "Use the WhatsApp buttons on this page, call one of our offices, or send your destination and dates through the custom trip form. The team will get back to you with options." },
-  { question: "Are the prices shown final?", answer: "Prices marked with * are starting prices and depend on travel dates, availability and the final hotels and transfers. A confirmed quote is shared after enquiry." },
-  { question: "Can you plan a custom trip?", answer: "Yes. Share the destination, dates, number of travellers and any special requests, and the team will suggest a suitable outline." },
-  { question: "Do you help with visas and flights?", answer: "Visa assistance, flight booking and hotel booking are part of our travel services and can be arranged along with a holiday package." },
-  { question: "Which cities can I contact?", answer: "You can reach the team in Salem (head office), Madurai and Thoothukudi. Phone numbers for each office are listed below, and WhatsApp messages go to the Salem number unless you prefer to call another branch." },
-];
-
 const polaroids = [
-  { name: "Paris", src: "/assets/home/paris.jpg", className: "top-2 right-2 rotate-[8deg] sm:right-6 lg:-right-2" },
-  { name: "Dubai", src: "/assets/home/dubai.jpg", className: "top-28 right-10 -rotate-[6deg] sm:top-32 sm:right-16 lg:right-8" },
-  { name: "Maldives", src: "/assets/home/maldives.jpg", className: "top-52 right-0 rotate-[4deg] sm:top-60 sm:right-6 lg:-right-1" },
+  { name: "Paris", alt: "A Paris street scene shown as a holiday photo", src: "/assets/home/paris.jpg", className: "top-2 right-2 rotate-[8deg] sm:right-6 lg:-right-2" },
+  { name: "Dubai", alt: "The Dubai skyline shown as a holiday photo", src: "/assets/home/dubai.jpg", className: "top-28 right-10 -rotate-[6deg] sm:top-32 sm:right-16 lg:right-8" },
+  { name: "Maldives", alt: "A Maldives shoreline shown as a holiday photo", src: "/assets/home/maldives.jpg", className: "top-52 right-0 rotate-[4deg] sm:top-60 sm:right-6 lg:-right-1" },
 ];
 
 export default function Home() {
   return (
     <div className="bg-white">
+      <JsonLd data={faqLd(faqs)} />
       <section className="relative isolate">
         <div className="relative min-h-[34rem] overflow-hidden lg:min-h-[38rem]">
           <Image
             src="/assets/home/hero.jpg"
-            alt="Mountain lake holiday destination"
+            alt="A mountain lake and forest, the Christ Holidays homepage banner"
             fill
             priority
             className="object-cover object-center"
@@ -162,13 +166,13 @@ export default function Home() {
                 with Experts
               </h1>
               <p className="mt-5 max-w-md text-[15px] leading-relaxed font-medium text-navy/80">
-                Domestic & International Packages &nbsp;|&nbsp; Honeymoon &nbsp;|&nbsp; Group Tours &nbsp;|&nbsp; Visa & Flight Support
+                Domestic and international holidays from our Salem, Madurai and Tuticorin offices. Honeymoons, group tours, flights and visa support. Enquire for the price.
               </p>
               <a
                 href={whatsappLink("Hello Christ Holidays, I want instant trip plans.")}
                 className="mt-7 inline-flex items-center gap-2 rounded-full bg-yellow px-6 py-3.5 text-base font-bold text-navy shadow-[0_10px_24px_rgba(255,212,0,0.45)] transition hover:-translate-y-0.5 hover:bg-yellow-dark hover:shadow-[0_14px_28px_rgba(255,212,0,0.55)]"
               >
-                <span className="inline-flex h-7 w-7 items-center justify-center rounded-full bg-[#25D366] text-white">
+                <span className="inline-flex h-7 w-7 items-center justify-center rounded-full bg-[#075E54] text-white">
                   <WhatsAppIcon className="h-4 w-4" />
                 </span>
                 Get Instant Trip Plans on WhatsApp
@@ -186,7 +190,7 @@ export default function Home() {
                   key={card.name}
                   className={`absolute w-[8.5rem] bg-white p-1.5 pb-7 shadow-[0_14px_30px_rgba(1,38,107,0.22)] transition duration-300 hover:-translate-y-1 hover:rotate-0 hover:shadow-[0_18px_36px_rgba(1,38,107,0.28)] sm:w-40 ${card.className}`}
                 >
-                  <Image src={card.src} alt={card.name} width={240} height={180} className="h-28 w-full object-cover sm:h-32" />
+                  <Image src={card.src} alt={card.alt} width={240} height={180} className="h-28 w-full object-cover sm:h-32" />
                   <p className="absolute right-0 bottom-1.5 left-0 text-center text-[11px] font-semibold text-navy">{card.name}</p>
                 </div>
               ))}
@@ -216,13 +220,13 @@ export default function Home() {
               <h2 className="text-3xl font-extrabold text-navy md:text-4xl">
                 Explore <span className="mark-line">Top Destinations</span>
               </h2>
-              <Link href="/tour-packages" className="hidden text-sm font-semibold text-navy hover:text-navy-light sm:inline">
+              <Link href="/destinations" className="hidden text-sm font-semibold text-navy hover:text-navy-light sm:inline">
                 View All Destinations →
               </Link>
             </div>
           </Reveal>
           <DestinationExplorer destinations={destinations} />
-          <Link href="/tour-packages" className="mt-4 inline-block text-sm font-semibold text-navy sm:hidden">
+          <Link href="/destinations" className="mt-4 inline-block text-sm font-semibold text-navy sm:hidden">
             View All Destinations →
           </Link>
         </div>
@@ -253,12 +257,12 @@ export default function Home() {
       <section className="px-4 py-6 sm:px-6 lg:px-8">
         <Reveal>
           <div className="relative mx-auto max-w-7xl overflow-hidden rounded-[1.8rem] bg-navy px-5 py-8 text-white shadow-[0_16px_40px_rgba(1,38,107,0.25)] sm:px-8 lg:px-10">
-            <Image src="/assets/home/mountains-side.jpg" alt="" fill className="object-cover opacity-25" sizes="1200px" />
+            <Image src="/assets/home/mountains-side.jpg" alt="" fill className="object-cover opacity-25" sizes="100vw" quality={50} />
             <div className="absolute inset-0 bg-linear-to-r from-navy via-navy/90 to-navy-light/80" />
             <div className="relative flex flex-col items-center gap-8 lg:flex-row lg:gap-10">
               <div className="relative shrink-0">
                 <div className="absolute -top-2 -right-3 text-2xl text-yellow" aria-hidden="true">✦</div>
-                <div className="h-44 w-[7.2rem] rounded-[1.6rem] border-[5px] border-slate-900 bg-[#25D366] p-3 shadow-[0_16px_30px_rgba(0,0,0,0.35)] sm:h-52 sm:w-36">
+                <div className="h-44 w-[7.2rem] rounded-[1.6rem] border-[5px] border-slate-900 bg-[#075E54] p-3 shadow-[0_16px_30px_rgba(0,0,0,0.35)] sm:h-52 sm:w-36">
                   <div className="flex h-full flex-col items-center justify-center text-white">
                     <WhatsAppIcon className="h-16 w-16" />
                     <p className="mt-2 text-[11px] font-bold tracking-wide">WhatsApp</p>
@@ -280,7 +284,7 @@ export default function Home() {
                   href={whatsappLink("Hello Christ Holidays, I want to plan my dream trip on WhatsApp.")}
                   className="inline-flex items-center gap-2 rounded-full bg-yellow px-6 py-3.5 text-center text-sm font-bold text-navy shadow-lg transition hover:-translate-y-0.5 hover:bg-yellow-dark sm:text-base"
                 >
-                  <span className="inline-flex h-7 w-7 items-center justify-center rounded-full bg-[#25D366] text-white">
+                  <span className="inline-flex h-7 w-7 items-center justify-center rounded-full bg-[#075E54] text-white">
                     <WhatsAppIcon className="h-4 w-4" />
                   </span>
                   Chat with Our Travel Expert on WhatsApp →
@@ -316,7 +320,7 @@ export default function Home() {
               <Reveal key={pkg.slug} delay={i * 50}>
                 <article className="group overflow-hidden rounded-2xl bg-white shadow-[0_8px_24px_rgba(1,38,107,0.08)] ring-1 ring-slate-100 transition duration-300 hover:-translate-y-1.5 hover:shadow-[0_18px_36px_rgba(1,38,107,0.16)]">
                   <Link href={`/tour-packages/${pkg.slug}`} className="relative block">
-                    <Image src={pkg.image} alt={pkg.title} width={500} height={320} className="h-44 w-full object-cover transition duration-500 group-hover:scale-105" />
+                    <Image src={pkg.image} alt={pkg.alt} width={500} height={320} sizes="(min-width: 1024px) 25vw, (min-width: 640px) 50vw, 100vw" className="h-44 w-full object-cover transition duration-500 group-hover:scale-105" />
                     <span className="absolute top-3 right-3 rounded-full bg-yellow px-3 py-1 text-[11px] font-bold text-navy shadow-sm">
                       {pkg.duration}
                     </span>
@@ -327,17 +331,11 @@ export default function Home() {
                         <h3 className="font-extrabold text-navy">
                           <Link href={`/tour-packages/${pkg.slug}`} className="hover:underline">{pkg.title}</Link>
                         </h3>
-                        <p className="mt-1 text-sm font-medium text-slate-600">
-                          {pkg.price.startsWith("From") || pkg.price.includes("₹") ? (
-                            <>From <span className="font-bold text-price">{pkg.price.replace(/^From\s+/i, "")}</span></>
-                          ) : (
-                            <span className="font-semibold text-navy">{pkg.price}</span>
-                          )}
-                        </p>
+                        <p className="mt-1 text-sm font-semibold text-navy">Enquire for price</p>
                       </div>
                       <a
                         href={whatsappLink(`Hello Christ Holidays, I am interested in the ${pkg.title}.`)}
-                        className="inline-flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-[#25D366] text-white shadow-md transition hover:scale-110"
+                        className="inline-flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-[#075E54] text-white shadow-md transition hover:scale-110"
                         aria-label={`Enquire about ${pkg.title} on WhatsApp`}
                       >
                         <WhatsAppIcon className="h-6 w-6" />
@@ -355,7 +353,7 @@ export default function Home() {
               </Reveal>
             ))}
           </div>
-          <p className="mt-4 text-xs text-slate-500">* Starting prices, subject to dates, availability and confirmation. Other packages are quoted after enquiry.</p>
+          <p className="mt-4 text-sm text-slate-700">These are sample outlines. Enquire for the price. The quote confirms hotels and what is included.</p>
           <Link href="/tour-packages" className="mt-3 inline-block text-sm font-semibold text-navy sm:hidden">
             View All Packages →
           </Link>
@@ -383,7 +381,7 @@ export default function Home() {
             {honeymoons.map((item, i) => (
               <Reveal key={item.name} delay={i * 60}>
                 <article className="overflow-hidden rounded-2xl bg-white shadow-sm ring-1 ring-slate-100">
-                  <Image src={item.image} alt={item.name} width={500} height={280} className="h-40 w-full object-cover" />
+                  <Image src={item.image} alt={`${item.name} scenery for a honeymoon enquiry`} width={500} height={280} sizes="(min-width: 1024px) 25vw, 100vw" className="h-40 w-full object-cover" />
                   <div className="p-4">
                     <h3 className="font-extrabold text-navy">{item.name}</h3>
                     <p className="mt-2 text-sm text-slate-600">{item.text}</p>
@@ -415,7 +413,7 @@ export default function Home() {
             {tripStyles.map((item, i) => (
               <Reveal key={item.title} delay={i * 70}>
                 <article className="overflow-hidden rounded-2xl bg-white shadow-sm ring-1 ring-slate-100 transition hover:-translate-y-1 hover:shadow-lg">
-                  <Image src={item.image} alt="" width={600} height={280} className="h-40 w-full object-cover" />
+                  <Image src={item.image} alt={item.alt} width={600} height={280} sizes="(min-width: 768px) 33vw, 100vw" className="h-40 w-full object-cover" />
                   <div className="p-5">
                     <h3 className="text-xl font-extrabold text-navy">{item.title}</h3>
                     <p className="mt-2 text-sm text-slate-600">{item.text}</p>
@@ -485,6 +483,11 @@ export default function Home() {
             </h2>
           </Reveal>
           <FaqAccordion items={faqs} />
+          <p className="mt-6 text-center text-sm">
+            <Link href="/faq" className="font-semibold text-navy underline">
+              Read the full FAQ
+            </Link>
+          </p>
         </div>
       </section>
 

@@ -22,6 +22,16 @@ body {
   color: #0f172a;
 }
 
+:focus-visible {
+  outline: 2px solid #01266b;
+  outline-offset: 3px;
+}
+
+.bg-navy :focus-visible,
+.bg-navy-dark :focus-visible {
+  outline-color: #ffd400;
+}
+
 .mark {
   position: relative;
   z-index: 0;
@@ -102,6 +112,11 @@ body {
   .reveal,
   .hero-plane {
     animation: none;
+  }
+  .reveal-block {
+    opacity: 1 !important;
+    transform: none !important;
+    transition: none !important;
   }
 }
 
