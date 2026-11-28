@@ -1,4 +1,5 @@
 import type { Metadata, Viewport } from "next";
+import Script from "next/script";
 import { Inter, Plus_Jakarta_Sans } from "next/font/google";
 import "./globals.css";
 import Header from "@/components/Header";
@@ -18,6 +19,8 @@ const jakarta = Plus_Jakarta_Sans({
   variable: "--font-jakarta",
   display: "swap",
 });
+
+const GA_MEASUREMENT_ID = process.env.NEXT_PUBLIC_GA_ID || "G-6KYT5MDJXE";
 
 const description =
   "Christ Holidays & Travels plans domestic and international holidays from Salem, Madurai and Thoothukudi (Tuticorin), Tamil Nadu. Enquire for package prices, honeymoons, group and corporate tours, flights, hotels and visa support.";
@@ -86,6 +89,10 @@ export default function RootLayout({
   return (
     <html lang="en" className={`${inter.variable} ${jakarta.variable} h-full antialiased`}>
       <body className="min-h-full flex flex-col bg-white text-slate-900 font-sans">
+        <Script src={`https://www.googletagmanager.com/gtag/js?id=${GA_MEASUREMENT_ID}`} strategy="afterInteractive" />
+        <Script id="google-analytics" strategy="afterInteractive">
+          {`window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','${GA_MEASUREMENT_ID}');`}
+        </Script>
         <a
           href="#content"
           className="absolute left-4 top-4 z-[100] -translate-y-24 rounded-full bg-yellow px-4 py-2 font-semibold text-navy focus:translate-y-0"
