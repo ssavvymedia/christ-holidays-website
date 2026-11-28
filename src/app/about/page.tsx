@@ -1,14 +1,18 @@
 import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
-import { branches, EMAIL, whatsappLink } from "@/lib/site";
+import Breadcrumbs from "@/components/Breadcrumbs";
 import { WhatsAppIcon } from "@/components/icons";
+import { branches, EMAIL, whatsappLink } from "@/lib/site";
+import JsonLd from "@/components/JsonLd";
+import { breadcrumbLd, pageMetadata } from "@/lib/seo";
 
-export const metadata: Metadata = {
-  title: "About Us",
+export const metadata: Metadata = pageMetadata({
+  title: "About Christ Holidays & Travels",
   description:
-    "Christ Holidays & Travels was started in 2017 by Dr. B. Absal Sherif, a travel industry professional with experience since 2008. Plan holidays from our offices in Salem, Madurai and Thoothukudi.",
-};
+    "Christ Holidays & Travels was founded in 2017 by Dr. B. Absal Sherif (BBA, MBA, Doctorate of Commerce), who has worked in travel since 2008. Offices in Salem, Madurai and Thoothukudi.",
+  path: "/about",
+});
 
 const career = [
   "Country Club",
@@ -23,7 +27,7 @@ const services = [
   { title: "Honeymoon Packages", href: "/travel-experiences/honeymoon-packages", text: "Quiet, well-paced getaways planned around your travel dates." },
   { title: "Group Tours", href: "/travel-experiences/group-tours", text: "Coordination for families, friends and larger groups travelling together." },
   { title: "Visa & Flight Support", href: "/travel-services", text: "Help with visa guidance and flight options alongside your holiday plan." },
-  { title: "Corporate & Family Trips", href: "/travel-experiences/group-tours", text: "Stays and transfers arranged for family holidays and company travel." },
+  { title: "Corporate Tours", href: "/travel-experiences/corporate-tours", text: "Stays and transfers arranged for company offsites, with one point of contact." },
 ];
 
 const reasons = [
@@ -48,9 +52,21 @@ const reasons = [
 export default function AboutPage() {
   return (
     <div className="bg-white">
+      <JsonLd
+        data={breadcrumbLd([
+          { name: "Home", path: "/" },
+          { name: "About", path: "/about" },
+        ])}
+      />
       <section className="relative overflow-hidden bg-linear-to-br from-sky via-sky-deep to-white">
         <div className="mx-auto max-w-7xl px-4 py-14 sm:px-6 lg:px-8 lg:py-20">
-          <p className="text-sm font-semibold tracking-wide text-navy/70 uppercase">Christ Holidays & Travels</p>
+          <Breadcrumbs
+            crumbs={[
+              { name: "Home", path: "/" },
+              { name: "About", path: "/about" },
+            ]}
+          />
+          <p className="mt-4 text-sm font-semibold tracking-wide text-navy uppercase">Christ Holidays & Travels</p>
           <h1 className="mt-3 text-4xl font-extrabold tracking-tight text-navy md:text-5xl">
             About <span className="mark-line">Christ Holidays & Travels</span>
           </h1>
@@ -84,6 +100,7 @@ export default function AboutPage() {
               alt="Dr. B. Absal Sherif at Arabian Travel Market, Dubai"
               width={1000}
               height={1421}
+              sizes="(min-width: 1024px) 50vw, 100vw"
               className="h-[28rem] w-full object-cover object-[center_20%] sm:h-[32rem]"
             />
             <figcaption className="px-5 py-3 text-sm font-medium text-navy">
@@ -106,11 +123,11 @@ export default function AboutPage() {
                 width={1000}
                 height={1288}
                 className="h-auto w-full object-cover object-top"
-                priority
+                sizes="(min-width: 1024px) 40vw, 100vw"
               />
             </div>
             <div>
-              <p className="text-sm font-semibold tracking-wide text-navy/70 uppercase">Founder</p>
+              <p className="text-sm font-semibold tracking-wide text-navy uppercase">Founder</p>
               <h3 className="mt-1 text-3xl font-extrabold text-navy">Dr. B. Absal Sherif</h3>
               <p className="mt-2 text-navy/80">BBA, MBA, Doctorate of Commerce</p>
               <p className="mt-6 text-[15px] leading-relaxed text-slate-700">

@@ -1,64 +1,19 @@
 "use client";
 
+import Image from "next/image";
 import Link from "next/link";
 import { useState } from "react";
-import { branches, whatsappLink } from "@/lib/site";
+import { usePathname } from "next/navigation";
 import { WhatsAppIcon } from "@/components/icons";
-
-type NavItem = {
-  href: string;
-  label: string;
-  children?: { href: string; label: string }[];
-};
-
-const navItems: NavItem[] = [
-  { href: "/", label: "Home" },
-  {
-    href: "/domestic-tour-packages",
-    label: "Domestic Tours",
-    children: [
-      { href: "/domestic-tour-packages/south-india", label: "South India" },
-      { href: "/domestic-tour-packages/north-india", label: "North India" },
-    ],
-  },
-  {
-    href: "/international-tour-packages",
-    label: "International Tours",
-    children: [
-      { href: "/international-tour-packages/asia", label: "Asia" },
-      { href: "/international-tour-packages/middle-east", label: "Middle East" },
-      { href: "/international-tour-packages/europe", label: "Europe" },
-    ],
-  },
-  {
-    href: "/travel-experiences/honeymoon-packages",
-    label: "Honeymoon",
-    children: [{ href: "/travel-experiences/honeymoon-packages", label: "Honeymoon Packages" }],
-  },
-  { href: "/travel-experiences/group-tours", label: "Group Tours" },
-  {
-    href: "/travel-services",
-    label: "Travel Services",
-    children: [{ href: "/travel-services", label: "All Travel Services" }],
-  },
-  { href: "/about", label: "About Us" },
-];
+import { branches, mainNav, WHATSAPP_DISPLAY, whatsappLink, type NavItem } from "@/lib/site";
 
 function PhoneGlyph() {
   return (
-    <span className="inline-flex h-6 w-6 items-center justify-center rounded-full bg-yellow text-navy">
+    <span className="inline-flex h-8 w-8 items-center justify-center rounded-full bg-yellow text-navy ring-1 ring-[#b38f00]">
       <svg viewBox="0 0 24 24" className="h-3.5 w-3.5" fill="currentColor" aria-hidden="true">
         <path d="M6.6 10.8c1.4 2.7 3.9 5.1 6.6 6.6l2.2-2.2c.3-.3.7-.4 1.1-.2 1.2.4 2.5.6 3.8.6.6 0 1 .4 1 1V20c0 .6-.4 1-1 1C10.8 21 3 13.2 3 3.7 3 3.1 3.4 2.7 4 2.7h3.5c.6 0 1 .4 1 1 0 1.3.2 2.6.6 3.8.1.4 0 .8-.2 1.1l-2.3 2.2Z" />
       </svg>
     </span>
-  );
-}
-
-function PinGlyph() {
-  return (
-    <svg viewBox="0 0 24 24" className="h-4 w-4 text-yellow-dark" fill="currentColor" aria-hidden="true">
-      <path d="M12 2C8.1 2 5 5.1 5 9c0 5.2 7 13 7 13s7-7.8 7-13c0-3.9-3.1-7-7-7Zm0 9.5A2.5 2.5 0 1 1 12 6.5a2.5 2.5 0 0 1 0 5Z" />
-    </svg>
   );
 }
 
@@ -70,118 +25,137 @@ function Chevron() {
   );
 }
 
+function pathOf(href: string) {
+  return href.split("#")[0];
+}
+
+function isCurrent(pathname: string, href: string) {
+  const base = pathOf(href);
+  if (base === "/") return pathname === "/";
+  return pathname === base || pathname.startsWith(`${base}/`);
+}
+
+function itemIsCurrent(pathname: string, item: NavItem) {
+  return isCurrent(pathname, item.href) || Boolean(item.children?.some((child) => isCurrent(pathname, child.href)));
+}
+
 export default function Header() {
   const [mobileOpen, setMobileOpen] = useState(false);
+  const pathname = usePathname();
 
   return (
     <header className="sticky top-0 z-50 bg-white shadow-[0_2px_16px_rgba(1,38,107,0.08)]">
       <div className="bg-white">
-        <div className="mx-auto flex max-w-7xl flex-col gap-2 px-4 py-2.5 sm:px-6 lg:flex-row lg:items-center lg:justify-between lg:px-8">
+        <div className="mx-auto flex max-w-7xl flex-col gap-3 px-4 py-2.5 sm:px-6 lg:flex-row lg:items-center lg:justify-between lg:px-8">
           <div className="flex items-center gap-3">
             <Link href="/" className="shrink-0">
-              <img
-                src="/assets/logo.png"
-                alt="Christ Holiday's & Travels Pvt Ltd. — Your Travel Designer"
-                width={396}
-                height={123}
-                className="h-10 w-auto max-w-[220px] object-contain object-left sm:h-11 sm:max-w-[260px] md:h-12 md:max-w-none lg:h-[3.25rem]"
-              />
+              <span className="relative block h-10 w-[8.1rem] sm:h-11 sm:w-[8.9rem] md:h-12 md:w-[9.7rem] lg:h-[3.25rem] lg:w-[10.5rem]">
+                <Image
+                  src="/assets/logo.png"
+                  alt="Christ Holiday's & Travels Pvt Ltd — Your Travel Designer"
+                  fill
+                  priority
+                  sizes="168px"
+                  className="object-contain object-left"
+                />
+              </span>
             </Link>
-            <span className="hidden max-w-[8.5rem] border-l border-slate-200 pl-3 text-[12px] leading-tight text-navy/80 md:inline">
+            <span className="hidden max-w-[8.5rem] border-l border-slate-200 pl-3 text-[12px] leading-tight text-navy md:inline">
               Your Trusted Travel Partner
             </span>
           </div>
-          <div className="flex flex-wrap items-center gap-x-5 gap-y-2 text-[13px] font-semibold text-navy">
-            <a href="tel:+917708104235" className="inline-flex items-center gap-1.5 hover:text-navy-light">
-              <PhoneGlyph />
-              <span>+91 770 8104 235</span>
-            </a>
-            <a
-              href={whatsappLink()}
-              className="inline-flex items-center gap-1.5 hover:text-navy-light"
-            >
-              <span className="inline-flex h-6 w-6 items-center justify-center rounded-full bg-[#25D366] text-white">
-                <WhatsAppIcon className="h-3.5 w-3.5" />
-              </span>
-              <span>+91 962 9879 026</span>
-            </a>
-            <div className="flex flex-wrap items-center gap-1 text-[13px] font-semibold">
-              <PinGlyph />
-              {branches.map((branch, i) => (
-                <span key={branch.city} className="inline-flex items-center">
-                  {i > 0 && <span className="mx-1.5 text-slate-300">|</span>}
-                  <a href={branch.tel} className="rounded-full px-1.5 py-0.5 transition hover:bg-sky hover:text-navy" title={`${branch.city} ${branch.display}`}>
-                    {branch.city}
-                  </a>
+          <ul className="flex flex-wrap items-center gap-x-4 gap-y-2 text-[13px] font-semibold text-navy">
+            {branches.map((branch) => (
+              <li key={branch.id}>
+                <a href={branch.tel} className="inline-flex min-h-11 items-center gap-1.5 rounded-full pr-1 hover:text-navy-light">
+                  <PhoneGlyph />
+                  <span>
+                    <span className="block text-[10px] font-bold tracking-wide text-navy uppercase">{branch.shortLabel}</span>
+                    {branch.display}
+                  </span>
+                </a>
+              </li>
+            ))}
+            <li>
+              <a href={whatsappLink()} className="inline-flex min-h-11 items-center gap-1.5 rounded-full pr-1 hover:text-navy-light">
+                <span className="inline-flex h-8 w-8 items-center justify-center rounded-full bg-[#075E54] text-white">
+                  <WhatsAppIcon className="h-4 w-4" />
                 </span>
-              ))}
-            </div>
-          </div>
+                <span>
+                  <span className="block text-[10px] font-bold tracking-wide text-navy uppercase">WhatsApp</span>
+                  {WHATSAPP_DISPLAY}
+                </span>
+              </a>
+            </li>
+          </ul>
         </div>
       </div>
 
       <div className="bg-navy text-white">
-        <div className="mx-auto flex max-w-7xl items-center justify-between gap-3 px-4 sm:px-6 lg:px-8">
-          <nav className="hidden items-center gap-1 py-0 text-[13px] font-medium xl:flex xl:gap-0.5">
-            {navItems.map((item, index) => (
-              <div key={item.href} className="nav-drop relative">
-                <Link
-                  href={item.href}
-                  className={`inline-flex items-center gap-1 px-3 py-3.5 transition hover:text-yellow ${
-                    index === 0 ? "border-b-[3px] border-yellow text-white" : ""
-                  }`}
-                >
-                  {item.label}
-                  {item.children && <Chevron />}
-                </Link>
-                {item.children && (
-                  <div className="nav-drop-menu invisible absolute top-full left-0 z-20 min-w-[200px] rounded-xl bg-white py-2 text-navy opacity-0 shadow-lg ring-1 ring-slate-100 transition duration-150">
-                    {item.children.map((child) => (
-                      <Link
-                        key={child.href + child.label}
-                        href={child.href}
-                        className="block px-4 py-2 text-sm hover:bg-sky"
-                      >
-                        {child.label}
-                      </Link>
-                    ))}
-                  </div>
-                )}
-              </div>
-            ))}
+        <div className="mx-auto flex max-w-7xl items-center justify-between gap-2 px-4 sm:px-6 lg:px-8">
+          <nav className="hidden min-w-0 items-center xl:flex" aria-label="Primary">
+            {mainNav.map((item) => {
+              const current = itemIsCurrent(pathname, item);
+              return (
+                <div key={item.href} className="nav-drop relative">
+                  <Link
+                    href={item.href}
+                    aria-current={current ? "page" : undefined}
+                    className={`inline-flex min-h-11 items-center gap-1 px-2.5 py-3 text-[13px] font-medium transition hover:text-yellow ${
+                      current ? "border-b-[3px] border-yellow text-white" : ""
+                    }`}
+                  >
+                    {item.label}
+                    {item.children && <Chevron />}
+                  </Link>
+                  {item.children && (
+                    <div className="nav-drop-menu invisible absolute top-full left-0 z-20 min-w-[220px] rounded-xl bg-white py-2 text-navy opacity-0 shadow-lg ring-1 ring-slate-100 transition duration-150">
+                      {item.children.map((child) => (
+                        <Link key={child.href + child.label} href={child.href} className="block px-4 py-2.5 text-sm hover:bg-sky">
+                          {child.label}
+                        </Link>
+                      ))}
+                    </div>
+                  )}
+                </div>
+              );
+            })}
           </nav>
           <a
             href={whatsappLink("Hello Christ Holidays, I want to plan my trip.")}
-            className="my-2 ml-auto inline-flex items-center gap-2 rounded-full bg-yellow px-4 py-2 text-xs font-bold text-navy shadow-sm transition hover:-translate-y-0.5 hover:bg-yellow-dark hover:shadow-md sm:text-[13px] xl:ml-4"
+            className="my-2 ml-auto inline-flex min-h-11 max-w-[calc(100%-3.5rem)] items-center gap-2 rounded-full bg-yellow px-3 py-2 text-xs font-bold text-navy shadow-sm transition hover:-translate-y-0.5 hover:bg-yellow-dark sm:px-4 sm:text-[13px] xl:ml-3"
           >
-            <span className="inline-flex h-5 w-5 items-center justify-center rounded-full bg-[#25D366] text-white">
+            <span className="inline-flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-[#075E54] text-white">
               <WhatsAppIcon className="h-3.5 w-3.5" />
             </span>
-            Plan Your Trip on WhatsApp
-            <span aria-hidden="true">→</span>
+            <span className="truncate sm:hidden">WhatsApp</span>
+            <span className="hidden sm:inline">Plan your trip on WhatsApp</span>
           </a>
           <button
             type="button"
-            className="xl:hidden"
-            aria-label="Toggle menu"
+            className="inline-flex h-11 w-11 items-center justify-center rounded-md xl:hidden"
+            aria-label={mobileOpen ? "Close menu" : "Open menu"}
             aria-expanded={mobileOpen}
+            aria-controls="mobile-nav"
             onClick={() => setMobileOpen((open) => !open)}
           >
-            <span className="text-2xl leading-none">{mobileOpen ? "✕" : "☰"}</span>
+            <span className="text-2xl leading-none" aria-hidden="true">
+              {mobileOpen ? "✕" : "☰"}
+            </span>
           </button>
         </div>
         {mobileOpen && (
-          <div className="space-y-1 bg-navy-dark px-4 py-3 xl:hidden">
-            {navItems.map((item) => (
+          <nav id="mobile-nav" className="space-y-1 bg-navy-dark px-4 py-3 xl:hidden" aria-label="Mobile">
+            {mainNav.map((item) => (
               <div key={item.href}>
-                <Link href={item.href} className="block py-2 text-sm" onClick={() => setMobileOpen(false)}>
+                <Link href={item.href} className="block min-h-11 py-2.5 text-sm" onClick={() => setMobileOpen(false)}>
                   {item.label}
                 </Link>
                 {item.children?.map((child) => (
                   <Link
                     key={child.href + child.label}
                     href={child.href}
-                    className="block py-1.5 pl-4 text-sm text-blue-100"
+                    className="block min-h-11 py-2 pl-4 text-sm text-blue-100"
                     onClick={() => setMobileOpen(false)}
                   >
                     {child.label}
@@ -189,10 +163,7 @@ export default function Header() {
                 ))}
               </div>
             ))}
-            <Link href="/contact" className="block py-2 text-sm" onClick={() => setMobileOpen(false)}>
-              Contact
-            </Link>
-          </div>
+          </nav>
         )}
       </div>
     </header>

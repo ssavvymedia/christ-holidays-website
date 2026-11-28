@@ -1,12 +1,13 @@
 import type { Metadata } from "next";
+import LocationView from "@/components/LocationView";
+import { pageMetadata } from "@/lib/seo";
 
-export const metadata: Metadata = { title: "Madurai Office" };
+export const metadata: Metadata = pageMetadata({
+  title: "Madurai Travel Agency Office",
+  description: "Christ Holidays & Travels branch in Madurai, Tamil Nadu. Call +91 63743 95526 to plan a holiday. Enquire for the price. The street address is shared on request.",
+  path: "/locations/madurai",
+});
 
 export default function MaduraiPage() {
-  return (
-    <div className="mx-auto max-w-4xl px-4 py-16">
-      <h1 className="mb-4 text-4xl font-bold text-navy">Madurai Office</h1>
-      <p className="mt-4"><strong>Phone:</strong> <a href="tel:+916374395526" className="text-navy">+91 63743 95526</a></p>
-    </div>
-  );
+  return <LocationView id="madurai" />;
 }

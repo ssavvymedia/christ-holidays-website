@@ -17,10 +17,7 @@ export default function Reveal({
   useEffect(() => {
     const node = ref.current;
     if (!node) return;
-    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
-      setVisible(true);
-      return;
-    }
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
     const observer = new IntersectionObserver(
       ([entry]) => {
         if (entry.isIntersecting) {
@@ -37,7 +34,7 @@ export default function Reveal({
   return (
     <div
       ref={ref}
-      className={className}
+      className={`reveal-block ${className}`}
       style={{
         opacity: visible ? 1 : 0,
         transform: visible ? "none" : "translateY(22px)",

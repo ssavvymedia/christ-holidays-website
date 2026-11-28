@@ -1,35 +1,74 @@
 import type { Metadata } from "next";
+import EnquiryBand from "@/components/EnquiryBand";
+import EnquiryForm from "@/components/EnquiryForm";
+import PageIntro from "@/components/PageIntro";
+import { pageMetadata } from "@/lib/seo";
+import { branches, EMAIL, WHATSAPP_DISPLAY, whatsappLink } from "@/lib/site";
+import Link from "next/link";
 
-export const metadata: Metadata = {
-  title: "Contact Us",
-  description: "Contact Christ Holidays & Travels – Salem, Madurai, Thoothukudi. Phone, WhatsApp and enquiry form.",
-};
+export const metadata: Metadata = pageMetadata({
+  title: "Contact Christ Holidays & Travels",
+  description: "Contact the Christ Holidays & Travels offices in Salem, Madurai and Thoothukudi (Tuticorin). Call, WhatsApp +91 96298 79026, or email christholidaystravels@gmail.com.",
+  path: "/contact",
+});
 
 export default function ContactPage() {
   return (
-    <div className="max-w-5xl mx-auto px-4 py-16">
-      <h1 className="text-4xl font-bold text-blue-900 mb-8">Contact Us</h1>
-      <div className="grid md:grid-cols-2 gap-12">
-        <div>
-          <p className="mb-4"><strong>Phone:</strong> <a href="tel:+917708104235" className="text-blue-700">+91 770 8104 235</a></p>
-          <p className="mb-4"><strong>WhatsApp:</strong> <a href="https://wa.me/919629879026" className="text-blue-700">+91 962 9879 026</a></p>
-          <p className="mb-4"><strong>Email:</strong> christholidaystravels@gmail.com</p>
-          <p className="mb-6"><strong>Offices:</strong> Salem (Head Office), Madurai, Thoothukudi</p>
-          <a href="https://wa.me/919629879026?text=Hello%20Christ%20Holidays%2C%20I%20would%20like%20to%20enquire%20about%20a%20trip." className="inline-flex bg-yellow-400 text-black px-6 py-3 rounded-full font-semibold">Chat on WhatsApp</a>
+    <article>
+      <PageIntro
+        crumbs={[
+          { name: "Home", path: "/" },
+          { name: "Contact", path: "/contact" },
+        ]}
+        eyebrow="Salem, Madurai and Tuticorin"
+        title="Contact us"
+        intro="Call a travel agency office, send a WhatsApp message, or use the form. The form opens WhatsApp so the Salem team can reply. Enquire for the price of any trip."
+      />
+      <section className="py-14">
+        <div className="mx-auto grid max-w-7xl gap-10 px-4 sm:px-6 lg:grid-cols-2 lg:px-8">
+          <div>
+            <h2 className="text-2xl font-extrabold text-navy">Phone and WhatsApp</h2>
+            <ul className="mt-5 space-y-4">
+              {branches.map((branch) => (
+                <li key={branch.id} className="rounded-2xl bg-sky/60 p-4">
+                  <Link href={branch.path} className="font-extrabold text-navy hover:underline">
+                    {branch.label}
+                  </Link>
+                  <p className="mt-1">
+                    <a href={branch.tel} className="font-semibold text-navy">
+                      {branch.display}
+                    </a>
+                  </p>
+                </li>
+              ))}
+            </ul>
+            <p className="mt-5 text-slate-700">
+              WhatsApp:{" "}
+              <a href={whatsappLink("Hello Christ Holidays, I would like to enquire about a trip.")} className="font-semibold text-navy underline">
+                {WHATSAPP_DISPLAY}
+              </a>
+            </p>
+            <p className="mt-2 text-slate-700">
+              Email:{" "}
+              <a href={`mailto:${EMAIL}`} className="font-semibold text-navy underline">
+                {EMAIL}
+              </a>
+            </p>
+            <p className="mt-4 text-sm leading-relaxed text-slate-700">
+              Street addresses are not listed on this website. When you want to visit Salem, Madurai or Thoothukudi, call that office and ask for directions.
+            </p>
+          </div>
+          <div className="rounded-3xl bg-white p-6 shadow-[0_16px_40px_rgba(1,38,107,0.08)] ring-1 ring-slate-100 sm:p-8">
+            <h2 className="mb-4 text-2xl font-extrabold text-navy">Send an enquiry</h2>
+            <EnquiryForm />
+          </div>
         </div>
-        <div className="bg-white rounded-2xl shadow-lg p-8 border">
-          <h3 className="text-xl font-semibold mb-4">Send an Enquiry</h3>
-          <form className="space-y-4">
-            <input type="text" placeholder="Your Name" className="w-full border rounded-lg px-4 py-3" />
-            <input type="tel" placeholder="Phone Number" className="w-full border rounded-lg px-4 py-3" />
-            <input type="email" placeholder="Email" className="w-full border rounded-lg px-4 py-3" />
-            <input type="text" placeholder="Destination / Trip Type" className="w-full border rounded-lg px-4 py-3" />
-            <textarea placeholder="Your Message" rows={4} className="w-full border rounded-lg px-4 py-3" />
-            <button type="button" className="w-full bg-blue-800 text-white py-3 rounded-lg font-semibold hover:bg-blue-900">Submit Enquiry</button>
-          </form>
-          <p className="text-xs text-gray-500 mt-3">Form submissions currently open WhatsApp or email. Full CRM integration coming soon.</p>
-        </div>
-      </div>
-    </div>
+      </section>
+      <EnquiryBand
+        title="Prefer to start on WhatsApp?"
+        text="Send the destination, dates and number of travellers. You will get a quote rather than a price from this page."
+        message="Hello Christ Holidays, I would like to enquire about a trip."
+      />
+    </article>
   );
 }
